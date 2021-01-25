@@ -5,16 +5,16 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="dffdab806eee43feab323008ffe3ff7f" Name="Diagram1">
-        <EntityTypeShape EntityType="dbBookahMvcBookAppModel.tblBook" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
         <EntityTypeShape EntityType="dbBookahMvcBookAppModel.tblCategory" Width="1.5" PointX="0.75" PointY="1.875" IsExpanded="true" />
         <EntityTypeShape EntityType="dbBookahMvcBookAppModel.tblInvoice" Width="1.5" PointX="3" PointY="5.5" IsExpanded="true" />
         <EntityTypeShape EntityType="dbBookahMvcBookAppModel.tblOrder" Width="1.5" PointX="5.25" PointY="1.125" IsExpanded="true" />
         <EntityTypeShape EntityType="dbBookahMvcBookAppModel.tblUser" Width="1.5" PointX="0.75" PointY="5.25" IsExpanded="true" />
-        <AssociationConnector Association="dbBookahMvcBookAppModel.FK_tblBook_tblCategory" ManuallyRouted="false" />
-        <AssociationConnector Association="dbBookahMvcBookAppModel.FK_tblOrder_tblProducts" ManuallyRouted="false" />
         <AssociationConnector Association="dbBookahMvcBookAppModel.FK__tblOrder__Invoic__3E52440B" ManuallyRouted="false" />
         <AssociationConnector Association="dbBookahMvcBookAppModel.FK_tblInvoice_ToTable" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="dbBookahMvcBookAppModel.tblBook" Width="1.5" PointX="3" PointY="1.125" />
+        <AssociationConnector Association="dbBookahMvcBookAppModel.FK_tblBook_tblCategory" />
         <EntityTypeShape EntityType="dbBookahMvcBookAppModel.getallbook" Width="1.5" PointX="5.375" PointY="5.75" />
+        <EntityTypeShape EntityType="dbBookahMvcBookAppModel.viewallbook" Width="1.5" PointX="7.375" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

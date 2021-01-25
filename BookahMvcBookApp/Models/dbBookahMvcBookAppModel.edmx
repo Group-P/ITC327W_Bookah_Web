@@ -65,13 +65,26 @@
           <Property Name="IDNumber" Type="varchar" MaxLength="50" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'C:\USERS\USER\SOURCE\REPOS\BOOKAHMVCBOOKAPP\BOOKAHMVCBOOKAPP\APP_DATA\DBBOOKAHMVCBOOKAPP.MDF.dbo.getallbooks' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'E:\25JAN1245\25JAN2332_CROSSNIGHT\BOOKAHMVCBOOKAPP\BOOKAHMVCBOOKAPP\APP_DATA\DBBOOKAHMVCBOOKAPP.MDF.dbo.getallbooks' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="getallbooks">
           <Key>
             <PropertyRef Name="BookId" />
           </Key>
           <Property Name="BookId" Type="int" Nullable="false" />
           <Property Name="cat_name" Type="varchar" MaxLength="50" />
+          <Property Name="Description" Type="varchar" MaxLength="1000" />
+          <Property Name="Unit" Type="varchar" MaxLength="50" />
+          <Property Name="Image" Type="varchar(max)" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'E:\25JAN1245\25JAN2332_CROSSNIGHT\BOOKAHMVCBOOKAPP\BOOKAHMVCBOOKAPP\APP_DATA\DBBOOKAHMVCBOOKAPP.MDF.dbo.viewallbooks' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="viewallbooks">
+          <Key>
+            <PropertyRef Name="BookId" />
+          </Key>
+          <Property Name="BookId" Type="int" Nullable="false" />
+          <Property Name="book_name" Type="varchar" MaxLength="50" />
+          <Property Name="book_categories" Type="varchar" MaxLength="50" />
           <Property Name="Description" Type="varchar" MaxLength="1000" />
           <Property Name="Unit" Type="varchar" MaxLength="50" />
           <Property Name="Image" Type="varchar(max)" />
@@ -112,18 +125,6 @@ warning 6002: The table/view 'C:\USERS\USER\SOURCE\REPOS\BOOKAHMVCBOOKAPP\BOOKAH
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_tblOrder_tblProducts">
-          <End Role="tblBook" Type="Self.tblBook" Multiplicity="0..1" />
-          <End Role="tblOrder" Type="Self.tblOrder" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblBook">
-              <PropertyRef Name="BookId" />
-            </Principal>
-            <Dependent Role="tblOrder">
-              <PropertyRef Name="BookId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="dbBookahMvcBookAppModelStoreContainer">
           <EntitySet Name="tblBook" EntityType="Self.tblBook" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblCategory" EntityType="Self.tblCategory" Schema="dbo" store:Type="Tables" />
@@ -139,6 +140,16 @@ warning 6002: The table/view 'C:\USERS\USER\SOURCE\REPOS\BOOKAHMVCBOOKAPP\BOOKAH
 [getallbooks].[Image] AS [Image]
 FROM [dbo].[getallbooks] AS [getallbooks]</DefiningQuery>
           </EntitySet>
+          <EntitySet Name="viewallbooks" EntityType="Self.viewallbooks" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+[viewallbooks].[BookId] AS [BookId], 
+[viewallbooks].[book_name] AS [book_name], 
+[viewallbooks].[book_categories] AS [book_categories], 
+[viewallbooks].[Description] AS [Description], 
+[viewallbooks].[Unit] AS [Unit], 
+[viewallbooks].[Image] AS [Image]
+FROM [dbo].[viewallbooks] AS [viewallbooks]</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="FK__tblOrder__Invoic__3E52440B" Association="Self.FK__tblOrder__Invoic__3E52440B">
             <End Role="tblInvoice" EntitySet="tblInvoice" />
             <End Role="tblOrder" EntitySet="tblOrder" />
@@ -151,39 +162,18 @@ FROM [dbo].[getallbooks] AS [getallbooks]</DefiningQuery>
             <End Role="tblUser" EntitySet="tblUser" />
             <End Role="tblInvoice" EntitySet="tblInvoice" />
           </AssociationSet>
-          <AssociationSet Name="FK_tblOrder_tblProducts" Association="Self.FK_tblOrder_tblProducts">
-            <End Role="tblBook" EntitySet="tblBook" />
-            <End Role="tblOrder" EntitySet="tblOrder" />
-          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="dbBookahMvcBookAppModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="tblBook">
-          <Key>
-            <PropertyRef Name="BookId" />
-          </Key>
-          <Property Name="BookId" Type="Int32" Nullable="false" />
-          <Property Name="Author" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Description" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
-          <Property Name="Edition" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="ISBN" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Publisher" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Image" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Unit" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="CatId" Type="Int32" />
-          <NavigationProperty Name="tblCategory" Relationship="Self.FK_tblBook_tblCategory" FromRole="tblBook" ToRole="tblCategory" />
-          <NavigationProperty Name="tblOrders" Relationship="Self.FK_tblOrder_tblProducts" FromRole="tblBook" ToRole="tblOrder" />
-        </EntityType>
         <EntityType Name="tblCategory">
           <Key>
             <PropertyRef Name="CatId" />
           </Key>
           <Property Name="CatId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="tblBooks" Relationship="Self.FK_tblBook_tblCategory" FromRole="tblCategory" ToRole="tblBook" />
+          <NavigationProperty Name="tblBooks" Relationship="dbBookahMvcBookAppModel.FK_tblBook_tblCategory" FromRole="tblCategory" ToRole="tblBook" />
         </EntityType>
         <EntityType Name="tblInvoice">
           <Key>
@@ -210,7 +200,6 @@ FROM [dbo].[getallbooks] AS [getallbooks]</DefiningQuery>
           <Property Name="Total" Type="Int32" />
           <Property Name="OrderDate" Type="DateTime" Precision="0" />
           <Property Name="InvoiceId" Type="Int32" />
-          <NavigationProperty Name="tblBook" Relationship="Self.FK_tblOrder_tblProducts" FromRole="tblOrder" ToRole="tblBook" />
           <NavigationProperty Name="tblInvoice" Relationship="Self.FK__tblOrder__Invoic__3E52440B" FromRole="tblOrder" ToRole="tblInvoice" />
         </EntityType>
         <EntityType Name="tblUser">
@@ -227,30 +216,6 @@ FROM [dbo].[getallbooks] AS [getallbooks]</DefiningQuery>
           <Property Name="IDNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="tblInvoices" Relationship="Self.FK_tblInvoice_ToTable" FromRole="tblUser" ToRole="tblInvoice" />
         </EntityType>
-        <Association Name="FK_tblBook_tblCategory">
-          <End Role="tblCategory" Type="Self.tblCategory" Multiplicity="0..1" />
-          <End Role="tblBook" Type="Self.tblBook" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblCategory">
-              <PropertyRef Name="CatId" />
-            </Principal>
-            <Dependent Role="tblBook">
-              <PropertyRef Name="CatId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tblOrder_tblProducts">
-          <End Role="tblBook" Type="Self.tblBook" Multiplicity="0..1" />
-          <End Role="tblOrder" Type="Self.tblOrder" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblBook">
-              <PropertyRef Name="BookId" />
-            </Principal>
-            <Dependent Role="tblOrder">
-              <PropertyRef Name="BookId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK__tblOrder__Invoic__3E52440B">
           <End Role="tblInvoice" Type="Self.tblInvoice" Multiplicity="0..1" />
           <End Role="tblOrder" Type="Self.tblOrder" Multiplicity="*" />
@@ -276,19 +241,10 @@ FROM [dbo].[getallbooks] AS [getallbooks]</DefiningQuery>
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="dbBookahMvcBookAppEntities1" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="tblBooks" EntityType="Self.tblBook" />
           <EntitySet Name="tblCategories" EntityType="Self.tblCategory" />
           <EntitySet Name="tblInvoices" EntityType="Self.tblInvoice" />
           <EntitySet Name="tblOrders" EntityType="Self.tblOrder" />
           <EntitySet Name="tblUsers" EntityType="Self.tblUser" />
-          <AssociationSet Name="FK_tblBook_tblCategory" Association="Self.FK_tblBook_tblCategory">
-            <End Role="tblCategory" EntitySet="tblCategories" />
-            <End Role="tblBook" EntitySet="tblBooks" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tblOrder_tblProducts" Association="Self.FK_tblOrder_tblProducts">
-            <End Role="tblBook" EntitySet="tblBooks" />
-            <End Role="tblOrder" EntitySet="tblOrders" />
-          </AssociationSet>
           <AssociationSet Name="FK__tblOrder__Invoic__3E52440B" Association="Self.FK__tblOrder__Invoic__3E52440B">
             <End Role="tblInvoice" EntitySet="tblInvoices" />
             <End Role="tblOrder" EntitySet="tblOrders" />
@@ -297,8 +253,42 @@ FROM [dbo].[getallbooks] AS [getallbooks]</DefiningQuery>
             <End Role="tblUser" EntitySet="tblUsers" />
             <End Role="tblInvoice" EntitySet="tblInvoices" />
           </AssociationSet>
+          <EntitySet Name="tblBooks" EntityType="dbBookahMvcBookAppModel.tblBook" />
+          <AssociationSet Name="FK_tblBook_tblCategory" Association="dbBookahMvcBookAppModel.FK_tblBook_tblCategory">
+            <End Role="tblCategory" EntitySet="tblCategories" />
+            <End Role="tblBook" EntitySet="tblBooks" />
+          </AssociationSet>
           <EntitySet Name="getallbooks" EntityType="dbBookahMvcBookAppModel.getallbook" />
+          <EntitySet Name="viewallbooks" EntityType="dbBookahMvcBookAppModel.viewallbook" />
         </EntityContainer>
+        <EntityType Name="tblBook">
+          <Key>
+            <PropertyRef Name="BookId" />
+          </Key>
+          <Property Name="BookId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Author" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="Edition" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ISBN" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Publisher" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Image" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Unit" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CatId" Type="Int32" />
+          <NavigationProperty Name="tblCategory" Relationship="dbBookahMvcBookAppModel.FK_tblBook_tblCategory" FromRole="tblBook" ToRole="tblCategory" />
+        </EntityType>
+        <Association Name="FK_tblBook_tblCategory">
+          <End Type="dbBookahMvcBookAppModel.tblCategory" Role="tblCategory" Multiplicity="0..1" />
+          <End Type="dbBookahMvcBookAppModel.tblBook" Role="tblBook" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCategory">
+              <PropertyRef Name="CatId" />
+            </Principal>
+            <Dependent Role="tblBook">
+              <PropertyRef Name="CatId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityType Name="getallbook">
           <Key>
             <PropertyRef Name="BookId" />
@@ -309,28 +299,23 @@ FROM [dbo].[getallbooks] AS [getallbooks]</DefiningQuery>
           <Property Name="Unit" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Image" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
+        <EntityType Name="viewallbook">
+          <Key>
+            <PropertyRef Name="BookId" />
+          </Key>
+          <Property Name="BookId" Type="Int32" Nullable="false" />
+          <Property Name="book_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="book_categories" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="Unit" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Image" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="dbBookahMvcBookAppModelStoreContainer" CdmEntityContainer="dbBookahMvcBookAppEntities1">
-          <EntitySetMapping Name="tblBooks">
-            <EntityTypeMapping TypeName="dbBookahMvcBookAppModel.tblBook">
-              <MappingFragment StoreEntitySet="tblBook">
-                <ScalarProperty Name="BookId" ColumnName="BookId" />
-                <ScalarProperty Name="Author" ColumnName="Author" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="Edition" ColumnName="Edition" />
-                <ScalarProperty Name="ISBN" ColumnName="ISBN" />
-                <ScalarProperty Name="Publisher" ColumnName="Publisher" />
-                <ScalarProperty Name="Image" ColumnName="Image" />
-                <ScalarProperty Name="Title" ColumnName="Title" />
-                <ScalarProperty Name="Unit" ColumnName="Unit" />
-                <ScalarProperty Name="CatId" ColumnName="CatId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="tblCategories">
             <EntityTypeMapping TypeName="dbBookahMvcBookAppModel.tblCategory">
               <MappingFragment StoreEntitySet="tblCategory">
@@ -379,6 +364,22 @@ FROM [dbo].[getallbooks] AS [getallbooks]</DefiningQuery>
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="tblBooks">
+            <EntityTypeMapping TypeName="dbBookahMvcBookAppModel.tblBook">
+              <MappingFragment StoreEntitySet="tblBook">
+                <ScalarProperty Name="CatId" ColumnName="CatId" />
+                <ScalarProperty Name="Unit" ColumnName="Unit" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="Publisher" ColumnName="Publisher" />
+                <ScalarProperty Name="ISBN" ColumnName="ISBN" />
+                <ScalarProperty Name="Edition" ColumnName="Edition" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Author" ColumnName="Author" />
+                <ScalarProperty Name="BookId" ColumnName="BookId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="getallbooks">
             <EntityTypeMapping TypeName="dbBookahMvcBookAppModel.getallbook">
               <MappingFragment StoreEntitySet="getallbooks">
@@ -386,6 +387,18 @@ FROM [dbo].[getallbooks] AS [getallbooks]</DefiningQuery>
                 <ScalarProperty Name="Unit" ColumnName="Unit" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="cat_name" ColumnName="cat_name" />
+                <ScalarProperty Name="BookId" ColumnName="BookId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="viewallbooks">
+            <EntityTypeMapping TypeName="dbBookahMvcBookAppModel.viewallbook">
+              <MappingFragment StoreEntitySet="viewallbooks">
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="Unit" ColumnName="Unit" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="book_categories" ColumnName="book_categories" />
+                <ScalarProperty Name="book_name" ColumnName="book_name" />
                 <ScalarProperty Name="BookId" ColumnName="BookId" />
               </MappingFragment>
             </EntityTypeMapping>

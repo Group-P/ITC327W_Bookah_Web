@@ -25,11 +25,12 @@ namespace BookahMvcBookApp.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public DbSet<tblBook> tblBooks { get; set; }
         public DbSet<tblCategory> tblCategories { get; set; }
         public DbSet<tblInvoice> tblInvoices { get; set; }
         public DbSet<tblOrder> tblOrders { get; set; }
         public DbSet<tblUser> tblUsers { get; set; }
+        public DbSet<tblBook> tblBooks { get; set; }
         public DbSet<getallbook> getallbooks { get; set; }
+        public DbSet<viewallbook> viewallbooks { get; set; }
     }
 }

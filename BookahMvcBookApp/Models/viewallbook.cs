@@ -12,19 +12,13 @@ namespace BookahMvcBookApp.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class tblBook
+    public partial class viewallbook
     {
         public int BookId { get; set; }
-        public string Author { get; set; }
+        public string book_name { get; set; }
+        public string book_categories { get; set; }
         public string Description { get; set; }
-        public string Edition { get; set; }
-        public string ISBN { get; set; }
-        public string Publisher { get; set; }
-        public string Image { get; set; }
-        public string Title { get; set; }
         public string Unit { get; set; }
-        public Nullable<int> CatId { get; set; }
-    
-        public virtual tblCategory tblCategory { get; set; }
+        public string Image { get; set; }
     }
 }

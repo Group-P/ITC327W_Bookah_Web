@@ -24,7 +24,6 @@ namespace BookahMvcBookApp.Models
         public Nullable<System.DateTime> OrderDate { get; set; }
         public Nullable<int> InvoiceId { get; set; }
     
-        public virtual tblBook tblBook { get; set; }
         public virtual tblInvoice tblInvoice { get; set; }
     }
 }

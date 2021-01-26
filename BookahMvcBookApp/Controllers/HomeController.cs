@@ -15,7 +15,14 @@ namespace BookahMvcBookApp.Controllers
         // GET: Home
         public ActionResult Index()
         {
-            var query = db.tblBooks.ToList();
+            var query = db.viewallbooks.ToList();
+            return View(query);
+        }
+
+        
+        public ActionResult Single(int id)
+        {
+            var query = db.viewallbooks.FirstOrDefault(m => m.BookId == id);
             return View(query);
         }
 

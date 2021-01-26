@@ -1,11 +1,17 @@
-﻿@model IEnumerable<BookahMvcBookApp.Models.tblBook>
+﻿@model IEnumerable<BookahMvcBookApp.Models.viewallbook>
 <section class="ftco-section">
     <div class="container">
         <div class="row justify-content-center mb-3 pb-3">
             <div class="col-md-12 heading-section text-center ftco-animate fadeInUp ftco-animated">
-                <span class="subheading">Featured Products</span>
-                <h2 class="mb-4">Our Products</h2>
-                <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia</p>
+                <span class="subheading">Featured Books</span>
+                <h2 class="mb-4">Our Books</h2>
+                <p>
+                    "“Hold fast to dreams,
+                    For if dreams die
+                    Life is a broken-winged bird,
+                    That cannot fly.”
+                    ― Langston Hughes"
+                </p>
             </div>
         </div>
     </div>
@@ -37,17 +43,18 @@
 
                 <div class="col-md-6 col-lg-3 ftco-animate fadeInUp ftco-animated">
                     <div class="product">
-                        <a href="@Url.Action("AddtoCart", "Home", new { id = @item.BookId })" class="img-prod">
+                        <a href="@Url.Action("Single", "Home", new { id = @item.BookId })" class="img-prod">
                             <img class="img-fluid" src="~/Uploads/@item.Image" style="height:250px" alt="Colorlib Template">
                             <span class="status">30%</span>
                             <div class="overlay"></div>
                         </a>
                         <div class="text py-3 pb-4 px-3 text-center">
 
-                            <h3><a href="#">@item.Title</a></h3>
+                            <h4><a href="#">@item.book_name</a></h4>
+                            <h3><a href="#">@item.book_categories</a></h3>
                             <div class="d-flex">
                                 <div class="pricing">
-                                    <p class="price"><span class="mr-2 price-dc">Rs.00</span><span class="price-sale">Rs.@item.Unit</span></p>
+                                    <p class="price"><span class="mr-2 price-dc">R.00</span><span class="price-sale">R.@item.Unit</span></p>
                                 </div>
                             </div>
                             <div class="bottom-area d-flex px-3">
@@ -69,5 +76,5 @@
             }
         </div>
     </div>
-    </div>
+    
 </section>

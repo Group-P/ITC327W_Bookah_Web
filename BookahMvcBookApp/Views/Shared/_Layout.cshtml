@@ -62,11 +62,12 @@
                     {
                         <li class="nav-item active"><a href="@Url.Action("Index","Home")" class="nav-link">Home</a></li>
                         @*<li class="nav-item"><a href="about.html" class="nav-link">Books</a></li>
-                        <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>*@
+            <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>*@
                         <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
                         <li class="nav-item"><a href="@Url.Action("Login","Account")" class="nav-link">Login</a></li>
                         <li class="nav-item"><a href="@Url.Action("Register", "Account")" class="nav-link">Register</a></li>
-                        @*<li class="nav-item cta cta-colored"><a href="cart.html" class="nav-link"><span class="icon-shopping_cart"></span>[0]</a></li>*@
+                        <li class="nav-item"><a href="about.html" class="nav-link">Books</a></li>
+                        <li class="nav-item cta cta-colored"><a href="@Url.Action("Checkout", "Home")" class="nav-link"><span class="icon-shopping_cart"></span>[0]</a></li>
 
 
                     } @if (User.Identity.IsAuthenticated)
